@@ -97,6 +97,15 @@ class OwlConfig extends \Controller
 			$arrConfig[$owlKey] = $value;
 		}
 		
+		// remove responsive settings, otherwise center wont work
+		if(empty($arrResponsive))
+		{
+			unset($arrConfig['responsive'], $arrConfig['responsiveRefreshRate'], $arrConfig['responsiveBaseElement'], $arrConfig['responsiveClass']);
+		}
+		
+		// DOM element not working withing config yet
+		unset($arrConfig['responsiveBaseElement']);
+		
 		return $arrConfig;
 	}
 	

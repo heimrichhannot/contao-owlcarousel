@@ -450,7 +450,7 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 		),
 		'owl_responsive' => array
 		(
-			'label'						=> &$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_callbacks'],
+			'label'						=> &$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_responsive'],
 			'inputType'					=> 'multiColumnWizard',
 			'exclude'					=> true,
 			'eval'						=> array
