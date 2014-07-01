@@ -22,15 +22,6 @@ class ModuleNewsList extends \ModuleNewsList
 
 	public function generate()
 	{
-		if($_GET && \Environment::get('isAjaxRequest') && \Input::get('fmd'))
-		{
-			$objModule = \ModuleModel::findByPk(\Input::get('fmd'));
-			
-			if($objModule === null) die();
-			
-			die(OwlConfig::createConfig($objModule));
-		}
-		
 		if (TL_MODE == 'BE')
 		{
 			$objTemplate = new \BackendTemplate('be_wildcard');
@@ -50,8 +41,9 @@ class ModuleNewsList extends \ModuleNewsList
 		
 		if($this->addOwl)
 		{
+			OwlConfig::createConfigJs($this->objModel);
 			$this->Template->class .= ' owl-carousel';
-			$this->Template->cfgSrc = ampersand($this->generateFrontendUrl($objPage->row()) . '?act=' . OWLCAROUSEL_ACT_CONFIG . '&fmd='. $this->id);
+			$this->Template->cssID = 'id="' . OwlConfig::getCssIdFromModel($this->objModel) . '"';
 		}
 		
 		

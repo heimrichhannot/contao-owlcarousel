@@ -4,6 +4,34 @@ namespace HeimrichHannot\OwlCarousel;
 
 class OwlConfig extends \Controller
 {
+	public static function createConfigJs($objConfig)
+	{
+		$objT = new \FrontendTemplate('jquery.owlcarousel');
+		
+		$objT->config = json_encode(static::createConfig($objConfig));
+		$objT->cssID = static::getCssIdFromModel($objConfig);
+		
+		$strFile = 'assets/js/' . $objT->cssID . '.js';
+		
+		$objFile = new \File($strFile, file_exists(TL_ROOT . '/' . $strFile));
+		
+		// simple file caching
+		if($objConfig->tstamp > $objFile->mtime)
+		{
+			$objFile->write($objT->parse());
+			$objFile->close();
+		}
+		
+		$GLOBALS['TL_JAVASCRIPT']['owl.carousel_' . $objT->cssID] = $strFile;
+	}
+	
+	public static function getCssIdFromModel($objConfig)
+	{
+		$strClass = static::stripNamespaceFromClassName($objConfig);
+
+		return 'owlCarousel_' . substr(md5($strClass .'_'. $objConfig->id), 0, 6);
+	}
+	
 	public static function createConfig($objConfig)
 	{
 		\Controller::loadDataContainer('tl_owlcarousel_spread');
@@ -69,7 +97,18 @@ class OwlConfig extends \Controller
 			$arrConfig[$owlKey] = $value;
 		}
 		
-		return json_encode($arrConfig);
+		return $arrConfig;
+	}
+	
+	public static function stripNamespaceFromClassName($obj)
+	{
+		$classname = get_class($obj);
+	
+		if (preg_match('@\\\\([\w]+)$@', $classname, $matches)) {
+			$classname = $matches[1];
+		}
+	
+		return $classname;
 	}
 }
 

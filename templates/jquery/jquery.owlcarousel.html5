@@ -1,0 +1,5 @@
+(function($){
+	$(document).ready(function(){
+		$('#<?php echo $this->cssID;?>').owlCarousel(<?php echo $this->config; ?>);
+	});
+})(jQuery);

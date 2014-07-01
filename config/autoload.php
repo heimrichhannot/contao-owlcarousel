@@ -39,6 +39,7 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_newslist'      => 'system/modules/owlcarousel/templates/modules',
-	'block_owlcarousel' => 'system/modules/owlcarousel/templates/block',
+	'jquery.owlcarousel' => 'system/modules/owlcarousel/templates/jquery',
+	'mod_newslist'       => 'system/modules/owlcarousel/templates/modules',
+	'block_owlcarousel'  => 'system/modules/owlcarousel/templates/block',
 ));
