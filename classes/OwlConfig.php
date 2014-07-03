@@ -16,7 +16,7 @@ class OwlConfig extends \Controller
 		$objFile = new \File($strFile, file_exists(TL_ROOT . '/' . $strFile));
 		
 		// simple file caching
-		if($objConfig->tstamp > $objFile->mtime)
+		if($objConfig->tstamp > $objFile->mtime || $objFile->size == 0)
 		{
 			$objFile->write($objT->parse());
 			$objFile->close();
