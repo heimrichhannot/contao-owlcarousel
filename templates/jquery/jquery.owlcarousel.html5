@@ -1,7 +1,5 @@
 (function($){
 	$(document).ready(function(){
-		var config = <?php echo $this->config; ?>;
-		console.log(config);
-		$('#<?php echo $this->cssID;?>').owlCarousel(config);
+		$('#<?php echo $this->cssID;?>').owlCarousel(<?php echo $this->config; ?>);
 	});
 })(jQuery);
