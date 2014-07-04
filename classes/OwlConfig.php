@@ -67,7 +67,7 @@ class OwlConfig extends \Controller
 				
 				foreach($value as $config)
 				{
-					if(empty($config['owl_breakpoint']) || empty($config['owl_config'])) continue;
+					if(empty($config['owl_config'])) continue;
 					
 					$arrResponsiveConfig = trimsplit(',', $config['owl_config']);
 					
@@ -78,7 +78,27 @@ class OwlConfig extends \Controller
 					foreach($arrResponsiveConfig as $cKey => $configRow)
 					{
 						$arrConfigRow = trimsplit(':', $configRow);
-						$objResponsiveConfig->{$arrConfigRow[0]} = $arrConfigRow[1];
+						
+						$configKey = $arrConfigRow[0];
+						
+						// in case of an markup error, added comma at the end 
+						if(empty($configKey)) continue;
+						
+						$configValue = $arrConfigRow[1];
+						
+						// cast string boolean to boolean
+						if($configValue === 'false' || $configValue === 'true')
+						{
+							$configValue = filter_var($configValue, FILTER_VALIDATE_BOOLEAN);
+						}
+						
+						// cast string numbers to int
+						if(is_numeric($configValue) === true)
+						{
+							$configValue = intval($configValue);
+						}
+						
+						$objResponsiveConfig->{$configKey} = $configValue;
 					}
 					
 					$arrResponsive[$config['owl_breakpoint']] = (array) $objResponsiveConfig;

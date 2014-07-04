@@ -43,7 +43,7 @@ class ModuleNewsList extends \ModuleNewsList
 		{
 			OwlConfig::createConfigJs($this->objModel);
 			$this->Template->class .= ' owl-carousel';
-			$this->Template->cssID = 'id="' . OwlConfig::getCssIdFromModel($this->objModel) . '"';
+			$this->Template->cssID = ' id="' . OwlConfig::getCssIdFromModel($this->objModel) . '"';
 		}
 		
 		
