@@ -13,6 +13,7 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 		'addOwl'		=> 'owl_items,owl_margin,owl_loop,owl_center,
 							owl_mouseDrag,owl_touchDrag,owl_pullDrag,owl_freeDrag,
 							owl_stagePadding,owl_merge,owl_mergeFit,
+							owl_autoHeight, autoHeightClass,
 							owl_autoWidth,owl_startPosition,owl_URLhashListener,
 							owl_nav,owl_navRewind,owl_navText,
 							owl_slideBy,
@@ -171,6 +172,30 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 				'rgxp'			=> 'digit'
 			),
 			'sql'                     	=> "char(1) NOT NULL default ''"
+		),
+		'owl_autoHeight' => array
+		(
+			'label'						=> &$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_autoHeight'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'eval'						=> array
+			(
+				'tl_class'		=> 'w50 clr',
+				'rgxp'			=> 'digit'
+			),
+			'sql'                     	=> "char(1) NOT NULL default ''"
+		),
+		'owl_autoHeightClass' => array
+		(
+			'label'						=> &$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_autoHeightClass'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'default'					=> 'owl-height',
+			'eval'						=> array
+			(
+				'tl_class'		=> 'w50'
+			),
+			'sql'                     	=> "varchar(255) NOT NULL default ''"
 		),
 		'owl_autoWidth' => array
 		(

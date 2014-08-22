@@ -125,7 +125,7 @@ class OwlConfig extends \Controller
 		
 		// DOM element not working withing config yet
 		unset($arrConfig['responsiveBaseElement']);
-		
+
 		return $arrConfig;
 	}
 	

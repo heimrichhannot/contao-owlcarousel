@@ -14,6 +14,8 @@ $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_freeDrag'] = array('Free drag'
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_stagePadding'] = array('Stage padding', 'Padding left and right on stage (can see neighbours).');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_merge'] = array('Merge items', 'Merge items. Looking for data-merge="{number}" inside item.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_mergeFit'] = array('Fit merged items', 'Fit merged items if screen is smaller than items value.');
+$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_autoHeight'] = array('Autoheight', 'Try using height style on divs.');
+$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_autoHeightClass'] = array('Autoheight CSS class', 'Enter the autoHeight CSS class.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_autoWidth'] = array('Autowidth', 'Set non grid content. Try using width style on divs.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_startPosition'] = array('Start position', 'Start position or URL Hash string like "#id".');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_URLhashListener'] = array('URLhashListener', 'Listen to url hash changes. data-hash on items is required.');
