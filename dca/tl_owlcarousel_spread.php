@@ -13,7 +13,7 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 		'addOwl'		=> 'owl_items,owl_margin,owl_loop,owl_center,
 							owl_mouseDrag,owl_touchDrag,owl_pullDrag,owl_freeDrag,
 							owl_stagePadding,owl_merge,owl_mergeFit,
-							owl_autoHeight, autoHeightClass,
+							owl_autoHeight, owl_autoHeightClass,
 							owl_autoWidth,owl_startPosition,owl_URLhashListener,
 							owl_nav,owl_navRewind,owl_navText,
 							owl_slideBy,
