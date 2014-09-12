@@ -37,8 +37,6 @@ class ModuleNewsList extends \ModuleNewsList
 		
 		parent::generate();
 		
-		global $objPage;
-		
 		if($this->addOwl)
 		{
 			OwlConfig::createConfigJs($this->objModel);

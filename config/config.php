@@ -29,5 +29,5 @@ if(TL_MODE == 'FE')
 	/**
 	 * Javascript
 	 */
-	$GLOBALS['TL_JAVASCRIPT']['owl.carousel'] = 'system/modules/owlcarousel/assets/vendor/owl.carousel/owl.carousel.js';
+	$GLOBALS['TL_JAVASCRIPT']['owl.carousel'] = 'system/modules/owlcarousel/assets/vendor/owl.carousel/owl.carousel.js|static';
 }
