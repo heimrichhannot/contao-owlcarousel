@@ -1,15 +1,33 @@
-<?php 
+<?php
 
 /**
  * Hooks
  */
-
 $GLOBALS['TL_HOOKS']['loadDataContainer'][] = array('\HeimrichHannot\OwlCarousel\Hooks', 'loadDataContainerHook');
+$GLOBALS['TL_HOOKS']['parseArticles'][] = array('\HeimrichHannot\OwlCarousel\Hooks', 'parseArticlesHook');
 
 /**
  * Supported TL_DCA Entities, spreading efa palette to
  */
-$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_module']['newslist'] = '{config_legend}';
+
+// News support
+$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_module']['newslist'] = 'type;[[OWLCAROUSEL_PALETTE_DEFAULT]]';
+$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news_archive']['default'] = 'jumpTo;[[OWLCAROUSEL_PALETTE_PRESETCONFIG]]';
+$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news']['default'] = 'addImage;[[OWLCAROUSEL_PALETTE_GALLERY]]';
+
+// Config support
+$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_owlconfig']['default'] = 'title;[[OWLCAROUSEL_PALETTE_FLAT]]';
+
+
+/**
+ * Back end modules
+ */
+array_insert($GLOBALS['BE_MOD']['system'], 1, array('owlconfig' => array
+(
+	'tables'     => array('tl_owlconfig'),
+	'icon'       => 'system/modules/owlcarousel/assets/owl-logo.png'
+)));
+
 
 /**
  * Front end modules

@@ -1,5 +1,5 @@
 (function($){
 	$(window).load(function(){
-		$('#<?php echo $this->cssID;?>').owlCarousel(<?php echo $this->config; ?>);
+		$('.<?php echo $this->cssClass;?>').owlCarousel(<?php echo $this->config; ?>);
 	});
 })(jQuery);

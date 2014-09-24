@@ -3,6 +3,9 @@
 /**
  * Fields
  */
+$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owlConfig'] = array('Owl carousel config preset', 'Choose a owl carousel config preset from the list.');
+$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['addOwl'] = array('Add owl carousel', 'Add owl carousel support');
+$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['addGallery'] = array('Add gallery', 'Add an image gallery.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_items'] = array('Items', 'The number of items you want to see on the screen.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_margin'] = array('Margin', 'The margin-right(px) on item.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_loop'] = array('Loop', 'Inifnity loop. Duplicate last and first items to get loop illusion.');
@@ -51,7 +54,11 @@ $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_animateOut'] = array('CSS3 ani
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_animateIn'] = array('CSS3 animation in', 'CSS3 animation in.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_fallbackEasing'] = array('Easing for CSS2 $.animate.', 'Easing for CSS2 $.animate.');
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_rtl']= array('Right to left', 'Change direction from Right to left.');
+
+
 /**
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owlcarousel_legend'] = 'Owl Carousel Settings';
+$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owlcarousel_gallery'] = 'Gallery settings';
+$GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owlcarousel_config'] = 'Owl Carousel Settings';

@@ -1,12 +1,28 @@
-<?php 
+<?php
 
 namespace HeimrichHannot\OwlCarousel;
 
 class Hooks extends \Controller
 {
-	
+
 	private static $strSpreadDca = 'tl_owlcarousel_spread';
-	
+
+	public function parseArticlesHook(&$objTemplate, $arrArticle, $objModule)
+	{
+		if(!$arrArticle['addGallery']) return;
+
+		$objNewsArchive = \NewsArchiveModel::findByPk($arrArticle['pid']);
+
+		if($objNewsArchive === null) return;
+
+		$objConfig = OwlConfigModel::findByPk($objNewsArchive->owlConfig);
+
+		if($objConfig === null) return;
+
+		$objTemplate->gallery = OwlGallery::parseGallery(OwlGallery::createSettings($arrArticle, $objConfig));
+	}
+
+
 	/**
 	 * Spread Fields to existing DataContainers
 	 * @param string $strName
@@ -14,29 +30,109 @@ class Hooks extends \Controller
 	 */
 	public function loadDataContainerHook($strName)
 	{
-		if(!is_array($GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']) || !in_array($strName, array_keys($GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']))) return false;
-	
+		if (!is_array($GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']) || !in_array($strName, array_keys($GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']))) return false;
+
 		$this->loadDataContainer(static::$strSpreadDca);
 
-		if(!is_array($GLOBALS['TL_DCA'][static::$strSpreadDca]['fields'])) return false;
-	
-		$dc = &$GLOBALS['TL_DCA'][$strName];
-		
-		foreach($GLOBALS['TL_OWLCAROUSEL']['SUPPORTED'][$strName] as $strPalette => $prependTo)
-		{
-			if(!isset($dc['palettes'][$strPalette])) continue;
+		if (!is_array($GLOBALS['TL_DCA'][static::$strSpreadDca]['fields'])) return false;
 
-			$dc['palettes'][$strPalette] = str_replace($prependTo, $GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes']['default'] . ' ' . $prependTo, $dc['palettes'][$strPalette]);
-			$dc['palettes']['__selector__'] = array_merge($dc['palettes']['__selector__'], $GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes']['__selector__']);
-			
-			$dc['subpalettes'] = array_merge($dc['subpalettes'], $GLOBALS['TL_DCA'][static::$strSpreadDca]['subpalettes']);
-			$dc['fields'] = array_merge($dc['fields'], $GLOBALS['TL_DCA'][static::$strSpreadDca]['fields']);
+		$dc = &$GLOBALS['TL_DCA'][$strName];
+
+		foreach ($GLOBALS['TL_OWLCAROUSEL']['SUPPORTED'][$strName] as $strPalette => $replace) {
+
+			$arrFields    = array();
+			$arrFieldKeys = array();
+			$arrSelectors = array();
+			$arrSubFields = array();
+
+			if (!isset($dc['palettes'][$strPalette])) continue;
+
+			preg_match_all('#\[\[(?P<constant>.+)\]\]#', $replace, $matches);
+
+			if (!isset($matches['constant'][0])) continue;
+
+			$strConstant       = $matches['constant'][0];
+			$strReplacePalette = @constant($matches['constant'][0]);
+
+			$pos    = strpos($replace, '[[' . $strConstant . ']]');
+			$search = str_replace('[[' . $strConstant . ']]', '', $replace);
+
+			// prepend owl config palette
+			if ($pos < 1) {
+				$replace = $GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes'][$strReplacePalette] . $search;
+			} // append owl config palette
+			else {
+				$replace = $search . $GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes'][$strReplacePalette];
+			}
+
+			$arrFields = static::getPaletteFields($strReplacePalette);
+
+			$arrFieldKeys = array_keys($arrFields);
+
+			// inject palettes
+			$dc['palettes'][$strPalette] = str_replace($search, $replace, $dc['palettes'][$strPalette]);
+
+			// inject subplattes & selectors
+			$arrSelectors = array_intersect($GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes']['__selector__'], $arrFieldKeys);
+
+			if (!empty($arrSelectors)) {
+				$dc['palettes']['__selector__'] = array_merge(is_array($dc['palettes']['__selector__']) ? $dc['palettes']['__selector__'] : array(), $arrSelectors);
+
+				foreach ($arrSelectors as $key) {
+					$arrFields = array_merge($arrFields, static::getPaletteFields($key, 'subpalettes'));
+
+				}
+				$dc['subpalettes'] = array_merge(is_array($dc['subpalettes']) ? $dc['subpalettes'] : array(), $GLOBALS['TL_DCA'][static::$strSpreadDca]['subpalettes']);
+			}
+
+			// inject fields
+			$dc['fields'] = array_merge($arrFields, $dc['fields']);
 		}
-		
+
 		\System::loadLanguageFile(static::$strSpreadDca);
-		
+
 		// add language to TL_LANG palette
 		$GLOBALS['TL_LANG'][$strName] = array_merge($GLOBALS['TL_LANG'][$strName], $GLOBALS['TL_LANG'][static::$strSpreadDca]);
 	}
-	
+
+	protected static function getPaletteFields($strPalette, $type = 'palettes')
+	{
+		$boxes     = trimsplit(';', $GLOBALS['TL_DCA'][static::$strSpreadDca][$type][$strPalette]);
+		$arrFields = array();
+
+		if (!empty($boxes)) {
+			foreach ($boxes as $k => $v) {
+				$eCount    = 1;
+				$boxes[$k] = trimsplit(',', $v);
+
+				foreach ($boxes[$k] as $kk => $vv) {
+					if (preg_match('/^\[.*\]$/', $vv)) {
+						++$eCount;
+						continue;
+					}
+
+					if (preg_match('/^\{.*\}$/', $vv)) {
+						unset($boxes[$k][$kk]);
+					} else {
+						$arrField       = $GLOBALS['TL_DCA'][static::$strSpreadDca]['fields'][$vv];
+						$arrFields[$vv] = $arrField;
+
+						// orderSRC support
+						if (isset($arrField['eval']['orderField'])) {
+							$arrFields[$arrField['eval']['orderField']] = $GLOBALS['TL_DCA'][static::$strSpreadDca]['fields'][$arrField['eval']['orderField']];
+						}
+
+					}
+				}
+			}
+
+			// Unset a box if it does not contain any fields
+			if (count($boxes[$k]) < $eCount) {
+				unset($boxes[$k]);
+			}
+		}
+
+		return $arrFields;
+	}
+
 }

@@ -25,10 +25,15 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
+	// Models
+	'HeimrichHannot\OwlCarousel\OwlConfigModel' => 'system/modules/owlcarousel/models/OwlConfigModel.php',
+
 	// Modules
 	'HeimrichHannot\OwlCarousel\ModuleNewsList' => 'system/modules/owlcarousel/modules/ModuleNewsList.php',
 
 	// Classes
+	'HeimrichHannot\OwlCarousel\OwlGallery'     => 'system/modules/owlcarousel/classes/OwlGallery.php',
+	'HeimrichHannot\OwlCarousel\Constants'      => 'system/modules/owlcarousel/classes/Constants.php',
 	'HeimrichHannot\OwlCarousel\Hooks'          => 'system/modules/owlcarousel/classes/Hooks.php',
 	'HeimrichHannot\OwlCarousel\OwlConfig'      => 'system/modules/owlcarousel/classes/OwlConfig.php',
 ));
@@ -39,7 +44,8 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'jquery.owlcarousel' => 'system/modules/owlcarousel/templates/jquery',
-	'mod_newslist'       => 'system/modules/owlcarousel/templates/modules',
-	'block_owlcarousel'  => 'system/modules/owlcarousel/templates/block',
+	'jquery.owlcarousel'  => 'system/modules/owlcarousel/templates/jquery',
+	'mod_newslist'        => 'system/modules/owlcarousel/templates/modules',
+	'owl_gallery_default' => 'system/modules/owlcarousel/templates/gallery',
+	'block_owlcarousel'   => 'system/modules/owlcarousel/templates/block',
 ));

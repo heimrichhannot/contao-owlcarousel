@@ -9,9 +9,9 @@ class OwlConfig extends \Controller
 		$objT = new \FrontendTemplate('jquery.owlcarousel');
 		
 		$objT->config = json_encode(static::createConfig($objConfig));
-		$objT->cssID = static::getCssIdFromModel($objConfig);
+		$objT->cssClass = static::getCssClassFromModel($objConfig);
 		
-		$strFile = 'assets/js/' . $objT->cssID . '.js';
+		$strFile = 'assets/js/' . $objT->cssClass . '.js';
 		
 		$objFile = new \File($strFile, file_exists(TL_ROOT . '/' . $strFile));
 		
@@ -22,10 +22,10 @@ class OwlConfig extends \Controller
 			$objFile->close();
 		}
 		
-		$GLOBALS['TL_JAVASCRIPT']['owl.carousel_' . $objT->cssID] = $strFile;
+		$GLOBALS['TL_JAVASCRIPT']['owl.carousel_' . $objT->cssClass] = $strFile;
 	}
 	
-	public static function getCssIdFromModel($objConfig)
+	public static function getCssClassFromModel($objConfig)
 	{
 		$strClass = static::stripNamespaceFromClassName($objConfig);
 
