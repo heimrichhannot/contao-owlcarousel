@@ -4,11 +4,11 @@ namespace HeimrichHannot\OwlCarousel;
 
 class OwlConfig extends \Controller
 {
-	public static function createConfigJs($objConfig)
+	public static function createConfigJs($objConfig, $debug=false)
 	{
 		$objT = new \FrontendTemplate('jquery.owlcarousel');
 		
-		$objT->config = json_encode(static::createConfig($objConfig));
+		$objT->config = rtrim(ltrim(json_encode(static::createConfig($objConfig)), '{'), '}');
 		$objT->cssClass = static::getCssClassFromModel($objConfig);
 		
 		$strFile = 'assets/js/' . $objT->cssClass . '.js';
@@ -16,7 +16,7 @@ class OwlConfig extends \Controller
 		$objFile = new \File($strFile, file_exists(TL_ROOT . '/' . $strFile));
 		
 		// simple file caching
-		if($objConfig->tstamp > $objFile->mtime || $objFile->size == 0)
+		if($objConfig->tstamp > $objFile->mtime || $objFile->size == 0 || $debug)
 		{
 			$objFile->write($objT->parse());
 			$objFile->close();

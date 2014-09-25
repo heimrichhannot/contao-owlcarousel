@@ -23,6 +23,7 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 		OWLCAROUSEL_PALETTE_DEFAULT      => '{owlcarousel_legend},addOwl;',
 		OWLCAROUSEL_PALETTE_PRESETCONFIG => '{owlcarousel_config},owlConfig;',
 		OWLCAROUSEL_PALETTE_GALLERY      => '{owlcarousel_gallery},addGallery;',
+		OWLCAROUSEL_PALETTE_CONTENT      => '{type_legend},type;{owlcarousel_config},owlConfig;{source_legend},multiSRC,sortBy,useHomeDir;{image_legend},size,fullsize,numberOfItems;{template_legend:hide},owlgalleryTpl,customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop',
 	),
 	'subpalettes' => array
 	(
@@ -42,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 							owl_video,owl_videoHeight,owl_videoWidth,
 							owl_animateOut,owl_animateIn,owl_fallbackEasing,
 							owl_rtl',
-		'addGallery' => 'owlMultiSRC,owlSortBy,owlUseHomeDir,owlSize,owlFullsize,owlNumberOfItems',
+		'addGallery' => 'owlMultiSRC,owlSortBy,owlUseHomeDir,owlSize,owlFullsize,owlNumberOfItems,owlgalleryTpl,owlCustomTpl',
 	),
 	'fields'      => array
 	(
@@ -52,7 +53,7 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 			'inputType'  => 'select',
 			'exclude'    => true,
 			'foreignKey' => 'tl_owlconfig.title',
-			'sql'        => "int(10) unsigned NOT NULL"
+			'sql'        => "int(10) unsigned NOT NULL",
 		),
 		'addOwl'                    => array
 		(
@@ -77,13 +78,23 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 			),
 			'sql'       => "char(1) NOT NULL default ''"
 		),
-		'owlMultiSRC'                  => $GLOBALS['TL_DCA']['tl_content']['fields']['multiSRC'],
-		'owlOrderSRC'                  => $GLOBALS['TL_DCA']['tl_content']['fields']['orderSRC'],
-		'owlSortBy'                    => $GLOBALS['TL_DCA']['tl_content']['fields']['sortBy'],
-		'owlUseHomeDir'                => $GLOBALS['TL_DCA']['tl_content']['fields']['useHomeDir'],
-		'owlSize'                      => $GLOBALS['TL_DCA']['tl_content']['fields']['size'],
-		'owlFullsize'                  => $GLOBALS['TL_DCA']['tl_content']['fields']['fullsize'],
-		'owlNumberOfItems'             => $GLOBALS['TL_DCA']['tl_content']['fields']['numberOfItems'],
+		'owlMultiSRC'               => $GLOBALS['TL_DCA']['tl_content']['fields']['multiSRC'],
+		'owlOrderSRC'               => $GLOBALS['TL_DCA']['tl_content']['fields']['orderSRC'],
+		'owlSortBy'                 => $GLOBALS['TL_DCA']['tl_content']['fields']['sortBy'],
+		'owlUseHomeDir'             => $GLOBALS['TL_DCA']['tl_content']['fields']['useHomeDir'],
+		'owlSize'                   => $GLOBALS['TL_DCA']['tl_content']['fields']['size'],
+		'owlFullsize'               => $GLOBALS['TL_DCA']['tl_content']['fields']['fullsize'],
+		'owlNumberOfItems'          => $GLOBALS['TL_DCA']['tl_content']['fields']['numberOfItems'],
+		'owlCustomTpl'              => $GLOBALS['TL_DCA']['tl_content']['fields']['customTpl'],
+		'owlgalleryTpl'             => array
+		(
+			'label'            => &$GLOBALS['TL_LANG']['tl_content']['galleryTpl'],
+			'exclude'          => true,
+			'inputType'        => 'select',
+			'options_callback' => array('tl_owlcarousel_spread', 'getGalleryTemplates'),
+			'eval'             => array('tl_class' => 'w50'),
+			'sql'              => "varchar(64) NOT NULL default ''"
+		),
 		// END: Gallery fields
 		// START: Owl Carousel JS - Config Fields
 		'owl_items'                 => array
@@ -681,4 +692,32 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread']['palettes'][OWLCAROUSEL_PALETTE_FLAT
 
 // Gallery Support -- not tl_content type present, set isGallery as default for multiSRC
 $GLOBALS['TL_DCA']['tl_owlcarousel_spread']['fields']['owlMultiSRC']['eval']['orderField'] = 'owlOrderSRC';
-$GLOBALS['TL_DCA']['tl_owlcarousel_spread']['fields']['owlMultiSRC']['eval']['isGallery'] = true;
+$GLOBALS['TL_DCA']['tl_owlcarousel_spread']['fields']['owlMultiSRC']['eval']['isGallery']  = true;
+
+// Content Support -- set isGallery by type
+$GLOBALS['TL_DCA']['tl_content']['fields']['multiSRC']['load_callback'][] = array('tl_owlcarousel_spread', 'setFileTreeFlags');
+
+
+class tl_owlcarousel_spread extends \Backend
+{
+	/**
+	 * Return all gallery templates as array
+	 * @return array
+	 */
+	public function getGalleryTemplates()
+	{
+		return $this->getTemplateGroup('owl_carousel');
+	}
+
+	public function setFileTreeFlags($varValue, DataContainer $dc)
+	{
+
+		if ($dc->activeRecord) {
+			if ($dc->activeRecord->type == 'owlcarousel') {
+				$GLOBALS['TL_DCA'][$dc->table]['fields'][$dc->field]['eval']['isGallery'] = true;
+			}
+		}
+
+		return $varValue;
+	}
+}

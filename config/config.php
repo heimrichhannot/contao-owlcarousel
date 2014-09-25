@@ -15,7 +15,10 @@ $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_module']['newslist'] = 'type;[[OWLCA
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news_archive']['default'] = 'jumpTo;[[OWLCAROUSEL_PALETTE_PRESETCONFIG]]';
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news']['default'] = 'addImage;[[OWLCAROUSEL_PALETTE_GALLERY]]';
 
-// Config support
+// Content support
+$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_content']['owlcarousel'] = '[[OWLCAROUSEL_PALETTE_CONTENT]]';
+
+// Owl carousel config support
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_owlconfig']['default'] = 'title;[[OWLCAROUSEL_PALETTE_FLAT]]';
 
 
@@ -49,3 +52,8 @@ if(TL_MODE == 'FE')
 	 */
 	$GLOBALS['TL_JAVASCRIPT']['owl.carousel'] = 'system/modules/owlcarousel/assets/vendor/owl.carousel/owl.carousel.js|static';
 }
+
+/**
+ * Content elements
+ */
+array_insert($GLOBALS['TL_CTE']['media'], 2, array('owlcarousel' => 'HeimrichHannot\OwlCarousel\ContentOwlCarousel'));

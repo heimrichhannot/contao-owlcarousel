@@ -1,5 +1,11 @@
 (function($){
 	$(window).load(function(){
-		$('.<?php echo $this->cssClass;?>').owlCarousel(<?php echo $this->config; ?>);
+		$('.<?php echo $this->cssClass;?>').owlCarousel({
+			<?php echo $this->config;?>,
+			onInitialized : function(){
+				// remove data-gallery & data-lightbox for cloned items
+				this.$element.find('.owl-item.cloned a').removeAttr('data-lightbox data-gallery');
+			}
+		});
 	});
 })(jQuery);

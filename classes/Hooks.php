@@ -9,17 +9,19 @@ class Hooks extends \Controller
 
 	public function parseArticlesHook(&$objTemplate, $arrArticle, $objModule)
 	{
-		if(!$arrArticle['addGallery']) return;
+		if (!$arrArticle['addGallery']) return;
 
 		$objNewsArchive = \NewsArchiveModel::findByPk($arrArticle['pid']);
 
-		if($objNewsArchive === null) return;
+		if ($objNewsArchive === null) return;
 
 		$objConfig = OwlConfigModel::findByPk($objNewsArchive->owlConfig);
 
-		if($objConfig === null) return;
+		if ($objConfig === null) return;
 
-		$objTemplate->gallery = OwlGallery::parseGallery(OwlGallery::createSettings($arrArticle, $objConfig));
+		$objGallery = new OwlCarousel(OwlCarousel::createSettings($arrArticle, $objConfig));
+
+		$objTemplate->gallery = $objGallery->parse();
 	}
 
 
@@ -45,8 +47,6 @@ class Hooks extends \Controller
 			$arrSelectors = array();
 			$arrSubFields = array();
 
-			if (!isset($dc['palettes'][$strPalette])) continue;
-
 			preg_match_all('#\[\[(?P<constant>.+)\]\]#', $replace, $matches);
 
 			if (!isset($matches['constant'][0])) continue;
@@ -65,12 +65,17 @@ class Hooks extends \Controller
 				$replace = $search . $GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes'][$strReplacePalette];
 			}
 
-			$arrFields = static::getPaletteFields($strReplacePalette);
+			$arrFields = static::getPaletteFields($strReplacePalette, $dc);
 
 			$arrFieldKeys = array_keys($arrFields);
 
 			// inject palettes
-			$dc['palettes'][$strPalette] = str_replace($search, $replace, $dc['palettes'][$strPalette]);
+			// create palette if not existing
+			if (!isset($dc['palettes'][$strPalette])) {
+				$dc['palettes'][$strPalette] = $replace;
+			} else {
+				$dc['palettes'][$strPalette] = str_replace($search, $replace, $dc['palettes'][$strPalette]);
+			}
 
 			// inject subplattes & selectors
 			$arrSelectors = array_intersect($GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes']['__selector__'], $arrFieldKeys);
@@ -79,7 +84,7 @@ class Hooks extends \Controller
 				$dc['palettes']['__selector__'] = array_merge(is_array($dc['palettes']['__selector__']) ? $dc['palettes']['__selector__'] : array(), $arrSelectors);
 
 				foreach ($arrSelectors as $key) {
-					$arrFields = array_merge($arrFields, static::getPaletteFields($key, 'subpalettes'));
+					$arrFields = array_merge($arrFields, static::getPaletteFields($key, $dc, 'subpalettes'));
 
 				}
 				$dc['subpalettes'] = array_merge(is_array($dc['subpalettes']) ? $dc['subpalettes'] : array(), $GLOBALS['TL_DCA'][static::$strSpreadDca]['subpalettes']);
@@ -95,9 +100,10 @@ class Hooks extends \Controller
 		$GLOBALS['TL_LANG'][$strName] = array_merge($GLOBALS['TL_LANG'][$strName], $GLOBALS['TL_LANG'][static::$strSpreadDca]);
 	}
 
-	protected static function getPaletteFields($strPalette, $type = 'palettes')
+	protected static function getPaletteFields($strPalette, $dc, $type = 'palettes')
 	{
-		$boxes     = trimsplit(';', $GLOBALS['TL_DCA'][static::$strSpreadDca][$type][$strPalette]);
+		$boxes = trimsplit(';', $GLOBALS['TL_DCA'][static::$strSpreadDca][$type][$strPalette]);
+
 		$arrFields = array();
 
 		if (!empty($boxes)) {
@@ -114,7 +120,12 @@ class Hooks extends \Controller
 					if (preg_match('/^\{.*\}$/', $vv)) {
 						unset($boxes[$k][$kk]);
 					} else {
-						$arrField       = $GLOBALS['TL_DCA'][static::$strSpreadDca]['fields'][$vv];
+						if (isset($GLOBALS['TL_DCA'][static::$strSpreadDca]['fields'][$vv])) {
+							$arrField = $GLOBALS['TL_DCA'][static::$strSpreadDca]['fields'][$vv];
+						} else if (isset($dc['fields'][$vv])) {
+							$arrField = $dc['fields'][$vv];
+						}
+
 						$arrFields[$vv] = $arrField;
 
 						// orderSRC support

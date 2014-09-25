@@ -17,6 +17,7 @@ define('OWLCAROUSEL_PALETTE_DEFAULT', 'default');
 define('OWLCAROUSEL_PALETTE_FLAT', 'flat');
 define('OWLCAROUSEL_PALETTE_PRESETCONFIG', 'presetConfig');
 define('OWLCAROUSEL_PALETTE_GALLERY', 'gallery');
+define('OWLCAROUSEL_PALETTE_CONTENT', 'owlcarousel');
 
 class Constants {
 
