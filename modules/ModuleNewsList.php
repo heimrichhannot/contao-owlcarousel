@@ -42,8 +42,7 @@ class ModuleNewsList extends \ModuleNewsList
 			OwlConfig::createConfigJs($this->objModel);
 			$this->Template->class .= ' ' . OwlConfig::getCssClassFromModel($this->objModel) . ' owl-carousel';
 		}
-		
-		
+
 		return $this->Template->parse();
 	}
 

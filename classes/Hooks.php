@@ -11,13 +11,16 @@ class Hooks extends \Controller
 	{
 		if (!$arrArticle['addGallery']) return;
 
-		$objNewsArchive = \NewsArchiveModel::findByPk($arrArticle['pid']);
+		$objArchive = \NewsArchiveModel::findByPk($arrArticle['pid']);
 
-		if ($objNewsArchive === null) return;
+		if ($objArchive === null) return;
 
-		$objConfig = OwlConfigModel::findByPk($objNewsArchive->owlConfig);
+		$objConfig = OwlConfigModel::findByPk($objArchive->owlConfig);
 
 		if ($objConfig === null) return;
+
+		// set size from module
+		$arrArticle['owlSize'] = $objModule->imgSize;
 
 		$objGallery = new OwlCarousel(OwlCarousel::createSettings($arrArticle, $objConfig));
 

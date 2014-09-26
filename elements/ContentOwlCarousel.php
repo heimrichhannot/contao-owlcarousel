@@ -24,13 +24,13 @@ class ContentOwlCarousel extends \ContentGallery
 	 */
 	public function generate()
 	{
-		$strParent = parent::generate();
-
 		// show gallery instead of owlcarousel in backend mode
 		if (TL_MODE == 'BE')
 		{
 			return parent::generate();
 		}
+
+		parent::generate();
 
 		$objConfig = OwlConfigModel::findByPk($this->owlConfig);
 
