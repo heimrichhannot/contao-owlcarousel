@@ -1,0 +1,5 @@
+# OwlCarousel
+
+## Wichtige Änderung für bestehende Owlcarousel Installationen vor dem 29.11.2014
+
+- Modulkonfiguration: Alle newslist mit Owl-Support Module müssen als owl_newslist abgeändert werden.

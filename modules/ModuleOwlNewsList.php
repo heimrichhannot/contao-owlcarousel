@@ -2,16 +2,15 @@
 
 namespace HeimrichHannot\OwlCarousel;
 
-
 /**
- * Class ModuleNewsList
+ * Class ModuleOwlNewsList
  *
  * Front end module "news list".
  * @copyright  Leo Feyer 2005-2014
  * @author     Leo Feyer <https://contao.org>
  * @package    News
  */
-class ModuleNewsList extends \ModuleNewsList
+class ModuleOwlNewsList extends \ModuleNewsList
 {
 
 	/**

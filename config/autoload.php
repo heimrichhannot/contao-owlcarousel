@@ -29,7 +29,7 @@ ClassLoader::addClasses(array
 	'HeimrichHannot\OwlCarousel\OwlConfigModel'     => 'system/modules/owlcarousel/models/OwlConfigModel.php',
 
 	// Modules
-	'HeimrichHannot\OwlCarousel\ModuleNewsList'     => 'system/modules/owlcarousel/modules/ModuleNewsList.php',
+	'HeimrichHannot\OwlCarousel\ModuleOwlNewsList'  => 'system/modules/owlcarousel/modules/ModuleOwlNewsList.php',
 
 	// Elements
 	'HeimrichHannot\OwlCarousel\ContentOwlCarousel' => 'system/modules/owlcarousel/elements/ContentOwlCarousel.php',
@@ -48,6 +48,7 @@ ClassLoader::addClasses(array
 TemplateLoader::addFiles(array
 (
 	'jquery.owlcarousel'   => 'system/modules/owlcarousel/templates/jquery',
+	'news_full'            => 'system/modules/owlcarousel/templates/news',
 	'mod_newslist'         => 'system/modules/owlcarousel/templates/modules',
 	'owl_carousel_default' => 'system/modules/owlcarousel/templates/gallery',
 	'ce_owlcarousel'       => 'system/modules/owlcarousel/templates/elements',

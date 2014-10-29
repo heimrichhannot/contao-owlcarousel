@@ -11,7 +11,7 @@ $GLOBALS['TL_HOOKS']['parseArticles'][] = array('\HeimrichHannot\OwlCarousel\Hoo
  */
 
 // News support
-$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_module']['newslist'] = 'type;[[OWLCAROUSEL_PALETTE_DEFAULT]]';
+$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_module']['owl_newslist'] = 'skipFirst;[[OWLCAROUSEL_PALETTE_FLAT]]';
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news_archive']['default'] = 'jumpTo;[[OWLCAROUSEL_PALETTE_PRESETCONFIG]]';
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news']['default'] = 'addImage;[[OWLCAROUSEL_PALETTE_GALLERY]]';
 
@@ -35,7 +35,7 @@ array_insert($GLOBALS['BE_MOD']['system'], 1, array('owlconfig' => array
 /**
  * Front end modules
  */
-$GLOBALS['FE_MOD']['news']['newslist'] = 'HeimrichHannot\OwlCarousel\ModuleNewsList';
+$GLOBALS['FE_MOD']['news']['owl_newslist'] = '\HeimrichHannot\OwlCarousel\ModuleOwlNewsList';
 
 if(TL_MODE == 'FE')
 {
