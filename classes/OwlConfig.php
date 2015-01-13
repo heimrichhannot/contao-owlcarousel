@@ -24,6 +24,11 @@ class OwlConfig extends \Controller
 		
 		$GLOBALS['TL_JAVASCRIPT']['owl.carousel_' . $objT->cssClass] = $strFile;
 	}
+
+	public static function getCssClassForContent($id)
+	{
+		return 'owl-carousel-content-'.  $id;
+	}
 	
 	public static function getCssClassFromModel($objConfig)
 	{

@@ -62,3 +62,10 @@ $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owl_rtl']= array('Right to left', 
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owlcarousel_legend'] = 'Owl Karussell Einstellungen';
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owlcarousel_gallery'] = 'Galerie-Einstellungen';
 $GLOBALS['TL_LANG']['tl_owlcarousel_spread']['owlcarousel_config'] = 'Owl Karussell Einstellungen';
+
+
+/**
+ * Popup
+ */
+$GLOBALS['TL_LANG']['tl_carousel_spread']['editOwlConfig'][0] = 'Owl Konfiguration bearbeiten';
+$GLOBALS['TL_LANG']['tl_carousel_spread']['editOwlConfig'][1] = 'Owl Konfiguration ID %s bearbeiten';

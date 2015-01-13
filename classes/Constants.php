@@ -18,6 +18,8 @@ define('OWLCAROUSEL_PALETTE_FLAT', 'flat');
 define('OWLCAROUSEL_PALETTE_PRESETCONFIG', 'presetConfig');
 define('OWLCAROUSEL_PALETTE_GALLERY', 'gallery');
 define('OWLCAROUSEL_PALETTE_CONTENT', 'owlcarousel');
+define('OWLCAROUSEL_PALETTE_CONTENT_SLIDER_START', 'owlcarousel-content-start');
+define('OWLCAROUSEL_PALETTE_CONTENT_SLIDER_END', 'owlcarousel-content-end');
 
 class Constants {
 

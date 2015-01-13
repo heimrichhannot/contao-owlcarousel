@@ -54,6 +54,10 @@ $GLOBALS['TL_DCA']['tl_owlcarousel_spread'] = array
 			'exclude'    => true,
 			'foreignKey' => 'tl_owlconfig.title',
 			'sql'        => "int(10) unsigned NOT NULL",
+			'wizard' => array
+			(
+				array('tl_owlcarousel_spread', 'editOwlConfig')
+			),
 		),
 		'addOwl'                    => array
 		(
@@ -719,5 +723,10 @@ class tl_owlcarousel_spread extends \Backend
 		}
 
 		return $varValue;
+	}
+
+	public function editOwlConfig(DataContainer $dc)
+	{
+		return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=owlconfig&amp;act=edit&amp;id=' . $dc->value . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_carousel_spread']['editOwlConfig'][1]), $dc->value) . '" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'' . specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_owlcarousel_spread']['editOwlConfig'][1], $dc->value))) . '\',\'url\':this.href});return false">' . Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_carousel_spread']['editOwlConfig'][0], 'style="vertical-align:top"') . '</a>';
 	}
 }
