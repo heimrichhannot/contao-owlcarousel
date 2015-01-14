@@ -13,6 +13,9 @@ $dc = &$GLOBALS['TL_DCA']['tl_content'];
 $dc['palettes']['owlcarousel-content-start'] = '{type_legend},type,headline;{owlcarousel_config},owlConfig;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
 $dc['palettes']['owlcarousel-content-stop']  = '{type_legend},type,headline;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
 
+$dc['palettes']['owlcarousel-slide-start'] = '{type_legend},type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
+$dc['palettes']['owlcarousel-slide-stop']  = '{type_legend},type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
+
 $dc['palettes']['owlcarousel-nav-start'] = '{type_legend},type,headline;{owlcarousel_config},owlConfig,owlContentSlider;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
 $dc['palettes']['owlcarousel-nav-stop']  = '{type_legend},type,headline;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
 

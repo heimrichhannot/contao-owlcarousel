@@ -62,6 +62,8 @@ array_insert($GLOBALS['TL_CTE'], 3, array(
 		'owlcarousel'                 => 'HeimrichHannot\OwlCarousel\ContentOwlCarousel',
 		'owlcarousel-content-start'   => 'HeimrichHannot\OwlCarousel\ContentOwlCarouselContentStart',
 		'owlcarousel-slide-separator' => 'HeimrichHannot\OwlCarousel\ContentOwlCarouselSlide',
+		'owlcarousel-slide-start'     => 'HeimrichHannot\OwlCarousel\ContentOwlCarouselSlideStart',
+		'owlcarousel-slide-stop'      => 'HeimrichHannot\OwlCarousel\ContentOwlCarouselSlideStop',
 		'owlcarousel-content-stop'    => 'HeimrichHannot\OwlCarousel\ContentOwlCarouselContentStop',
 		'owlcarousel-nav-start'       => 'HeimrichHannot\OwlCarousel\ContentOwlCarouselNavStart',
 		'owlcarousel-nav-separator'   => 'HeimrichHannot\OwlCarousel\ContentOwlCarouselNavSlide',
@@ -73,8 +75,10 @@ array_insert($GLOBALS['TL_CTE'], 3, array(
  * Intend elements
  */
 $GLOBALS['TL_WRAPPERS']['start'][]     = 'owlcarousel-content-start';
+$GLOBALS['TL_WRAPPERS']['start'][]     = 'owlcarousel-slide-start';
 $GLOBALS['TL_WRAPPERS']['start'][]     = 'owlcarousel-nav-start';
 $GLOBALS['TL_WRAPPERS']['stop'][]      = 'owlcarousel-content-stop';
+$GLOBALS['TL_WRAPPERS']['stop'][]      = 'owlcarousel-slide-stop';
 $GLOBALS['TL_WRAPPERS']['stop'][]      = 'owlcarousel-nav-stop';
 $GLOBALS['TL_WRAPPERS']['separator'][] = 'owlcarousel-slide-separator';
 $GLOBALS['TL_WRAPPERS']['separator'][] = 'owlcarousel-nav-separator';

@@ -19,9 +19,11 @@
 
 
 		owl.on('click', '.owl-item', function(event) {
-			if(owl.data('syncto') === undefined) return false;
+			var $carousel = $(this).parents('.owl-carousel');
 
-			var $target = $('.' + owl.data('syncto'));
+			if($carousel.data('syncto') === undefined) return false;
+
+			var $target = $('.' + $carousel.data('syncto'));
 
 			if($target.length < 1) return false;
 
@@ -29,6 +31,7 @@
 		});
 
 		owl.on('change.owl.carousel', function(event) {
+
 			var $this = $(this);
 
 			if($this.data('syncid')  === undefined) return false;
