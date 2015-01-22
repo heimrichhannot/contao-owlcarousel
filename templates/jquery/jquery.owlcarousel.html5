@@ -21,7 +21,7 @@
 		owl.on('click', '.owl-item', function(event) {
 			var $carousel = $(this).parents('.owl-carousel');
 
-			if($carousel.data('syncto') === undefined) return false;
+			if($carousel.data('syncto') === undefined) return true; // click event must work to follow links, not false
 
 			var $target = $('.' + $carousel.data('syncto'));
 
