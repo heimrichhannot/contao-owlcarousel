@@ -21,6 +21,10 @@ $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_content']['owlcarousel-content-start
 // Owl carousel config support
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_owlconfig']['default'] = 'title;[[OWLCAROUSEL_PALETTE_FLAT]]';
 
+/**
+ * Models
+ */
+$GLOBALS['TL_MODELS']['tl_owlconfig'] = 'HeimrichHannot\\OwlCarousel\\OwlConfigModel';
 
 /**
  * Back end modules
