@@ -12,7 +12,7 @@ $GLOBALS['TL_HOOKS']['parseArticles'][]     = array('\HeimrichHannot\OwlCarousel
 // News support
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_module']['owl_newslist']  = 'skipFirst;[[OWLCAROUSEL_PALETTE_FLAT]]';
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news_archive']['default'] = 'protected;[[OWLCAROUSEL_PALETTE_PRESETCONFIG]]';
-$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news']['default']         = 'addImage;[[OWLCAROUSEL_PALETTE_GALLERY]]';
+$GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_news']['default']         = '[[OWLCAROUSEL_PALETTE_GALLERY]]{enclosure_legend';
 
 // Content support
 $GLOBALS['TL_OWLCAROUSEL']['SUPPORTED']['tl_content']['owlcarousel']               = '[[OWLCAROUSEL_PALETTE_CONTENT]]';

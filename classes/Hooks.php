@@ -73,12 +73,16 @@ class Hooks extends \Controller
 			$arrFieldKeys = array_keys($arrFields);
 
 			// inject palettes
-			// create palette if not existing
-			if (!isset($dc['palettes'][$strPalette])) {
-				$dc['palettes'][$strPalette] = $replace;
-			} else {
-				$dc['palettes'][$strPalette] = str_replace($search, $replace, $dc['palettes'][$strPalette]);
-			}
+            // create palette if not existing
+            if (!isset($dc['palettes'][$strPalette])) {
+                $dc['palettes'][$strPalette] = $replace;
+            } else {
+                // do not replace multiple times
+                if (!$replace || false !== strpos($dc['palettes'][$strPalette], $replace)) {
+                    continue;
+                }
+                $dc['palettes'][$strPalette] = str_replace($search, $replace, $dc['palettes'][$strPalette]);
+            }
 
 			// inject subplattes & selectors
 			$arrSelectors = array_intersect($GLOBALS['TL_DCA'][static::$strSpreadDca]['palettes']['__selector__'], $arrFieldKeys);
